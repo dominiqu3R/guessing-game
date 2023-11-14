@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <style>
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+
+body {
+  text-align: center;
+  background-color: #fffafc;
+}
+
+main {
+  width: 80%;
+  /*   background-color: lightblue; */
+  margin: auto;
+}
+
+h1 {
+  background-color: lavender;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 0;
+  font-family: "Varela Round", sans-serif;
+  font-size: 5vw;
+}
+
+.letter-input {
+  text-align: center;
+  font-size: 2rem;
+  width: calc(80% / 5);
+  box-shadow: 5px 5px 5px 1px rgba(60, 0, 200, 40%);
+  margin: 1rem 1%;
+  background-color: #edf6ff;
+}
+table {
+  margin: auto;
+  background-color: #edf6ff;
+}
+tr {
+  vertical-align: top;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px dashed black;
+}
+
+@keyframes bounce {
+  0% {
+    transform: rotate(0deg);
+  }
+  33% {
+    transform: rotate(-35deg);
+  }
+  66% {
+    transform: rotate(35deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+#character-select {
+  width: 290px;
+  height: 375px;
+  margin: 25px 25px;
+  background-color: lavender;
+  display: block;
+  float: left;
+}
+#character-image {
+  margin: 20px;
+}
+
+#image-select {
+  text-align: center;
+  margin: 0 30%;
+}
+
+#flowers {
+  animation: bounce 2s ease-in-out infinite;
+  margin: 150px;
+}
+
+#character-audio {
+  margin: 5%;
+  width: 90%;
+}
+    </style>
+</head>
+<body>
+    <main>
+  <h1>GUESS THE PASSWORD</h1>
+  <form id="password-form"> </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Wrong letter</th>
+        <th>Wrong letter</th>
+        <th>Wrong letter</th>
+        <th>Wrong letter</th>
+        <th>Wrong letter</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="td0">X:<br>a<br>z</td>
+        <td id="td1">X:</td>
+        <td id="td2">X:</td>
+        <td id="td3">X:<br>d<br>t</td>
+        <td id="td4">X:</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
+<div id="character-select">
+  <img src="" width="250" height="225" id="character-image" alt="character-select-image" />
+  <select name="image-choice" id="image-select">
+    <option value="" disabled selected>Select an image</option>
+    <option value="iron-man">Iron Man</option>
+    <option value="spider-man">Spiderman</option>
+    <option value="cap-america">Captain America</option>
+    <option value="hulk">Hulk</option>
+    <option value="thanos">Thanos</option>
+  </select>
+
+  <audio id="character-audio" controls>
+    <source src="" type="audio/ogg">
+    Your browser does not support mp3 audio
+  </audio>
+</div>
+
+<img src="" alt="wildflowers" height="200" width="250" id="flowers">
+    <script>const passwordForm = document.getElementById("password-form");
+
+let phrase = "guess";
+
+let index = 0;
+
+for (let char of phrase) {
+  // console.log("Hello");
+  const letterInput = document.createElement("input");
+  letterInput.type = "text";
+  letterInput.id = index.toString();
+  letterInput.maxLength = "1";
+  letterInput.classList.add("letter-input");
+  passwordForm.appendChild(letterInput);
+  index++;
+}
+
+passwordForm.addEventListener("change", function (event) {
+  // console.log(event.target.value);
+  const thisInput = event.target;
+  const guess = thisInput.value;
+  console.log(thisInput);
+  console.log(guess);
+  console.log(thisInput.id);
+
+  if (guess === phrase[parseInt(thisInput.id)]) {
+    alert("Correct!");
+    thisInput.disabled = true;
+    thisInput.placeholder = guess;
+  } else {
+    console.log("Incorrect guess");
+    document.getElementById(`td${thisInput.id}`).innerHTML += "<br>" + guess;
+    thisInput.value = "";
+  }
+});
+
+const flowers = document.getElementById("flowers");
+
+const flowerSrc =
+  "https://drive.google.com/uc?export=download&id=1btJIlLFx_N2vfnaFI-_lW_UltDHDT9df";
+
+flowers.src = flowerSrc;
+
+const imageSelect = document.getElementById("image-select");
+const characterImg = document.getElementById("character-image");
+
+const spidermanSrc =
+  "https://drive.google.com/uc?export=view&id=1tDCmj-vX6ipsvkw1NvUunF-9i_ABxCgD";
+
+const ironmanSrc =
+  "https://drive.google.com/uc?export=view&id=1HSNwBODFcRgMvjLz78Gz2i4Ux7fIMxvm";
+
+const captainAmericaSrc =
+  "https://drive.google.com/uc?export=view&id=1QZfcmWpjDjGVdrizJwN1CgSkMr7hP_gc";
+
+const hulkSrc =
+  "https://drive.google.com/uc?export=view&id=1IgnJCge-n5xaaFxqXMKqVA7MKZ0qJyE2";
+
+const thanosSrc =
+  "https://drive.google.com/uc?export=view&id=1CVj9lkukvaeRbyxPou-f7K2QkIUl0MJl";
+
+const characterSelectSrc =
+  "https://drive.google.com/uc?export=download&id=1ayfmqbm6-Ab2ws71xBS2SFHoGNdBJNOE";
+
+characterImg.src = characterSelectSrc;
+// characterImg.src = ironmanSrc;
+
+const characterAudio = document.getElementById("character-audio");
+const engine =
+  "http://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/fx/engine-7.ogg";
+const explosion =
+  "http://commondatastorage.googleapis.com/codeskulptor-assets/sounddogs/explosion.ogg";
+
+imageSelect.addEventListener("change", function () {
+  console.log(this.value);
+  if (this.value === "iron-man") {
+    characterImg.src = ironmanSrc;
+    characterAudio.src = engine;
+  } else if (this.value === "spider-man") {
+    characterImg.src = spidermanSrc;
+  } else if (this.value === "cap-america") {
+    characterImg.src = captainAmericaSrc;
+  } else if (this.value === "hulk") {
+    characterImg.src = hulkSrc;
+    characterAudio.src = explosion;
+  } else {
+    characterImg.src = thanosSrc;
+  }
+});</script>
+</body>
+</html>
